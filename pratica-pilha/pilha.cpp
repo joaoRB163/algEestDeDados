@@ -1,3 +1,10 @@
+// pilha.cpp
+// Algoritmos e Estruturas de Dados - IFSC
+//
+// PARTE 1: construir uma pilha DO ZERO, sem usar a std::stack pronta.
+// A pilha guarda inteiros num vetor de tamanho fixo.
+// LIFO: o ultimo que entra e o primeiro que sai.
+
 #include <iostream>
 using namespace std;
 
