@@ -1,5 +1,0 @@
-instalar -> https://www.msys2.org/
-
-abre o azulzinho (mingw)
-
-acessar -> https://drive.google.com/file/d/1ubFRumHR2kEV_0cZjrgKY4pO0UMh4RdV/view

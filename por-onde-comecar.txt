@@ -1,0 +1,10 @@
+instalar -> https://www.msys2.org/
+
+no amarelinho (UCRT64), use 
+> pacman -Syu
+> pacman -S mingw-w64-ucrt-x86_64-gcc
+
+
+acessar -> https://drive.google.com/file/d/1ubFRumHR2kEV_0cZjrgKY4pO0UMh4RdV/view
+
+abre o azulzinho (mingw)

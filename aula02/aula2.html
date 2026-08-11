@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bancada de Estruturas de Dados — AED / IFSC</title>
+<style>
+:root{
+  --ink:#FFFFFF; --panel:#F1F6EE; --clay:#5F973C; --data:#2C6E63; --alert:#B23A2E;
+  --bg:#132018; --bg2:#1B2B21; --muted:#B9C9BC; --line:rgba(255,255,255,.14);
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif; line-height:1.5;
+}
+.brand{height:6px;background:linear-gradient(90deg,var(--clay) 0 55%,var(--data) 55% 100%)}
+.wrap{max-width:1080px;margin:0 auto;padding:32px 24px 80px}
+header h1{font-size:2.4rem;line-height:1.1;margin:0 0 8px;font-weight:800}
+.eyebrow{font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:var(--clay);font-weight:700}
+.lede{color:var(--muted);max-width:66ch;margin:12px 0 0}
+.ctrl{
+  background:var(--bg2);border:1px solid var(--line);border-radius:8px;
+  padding:20px 22px;margin:28px 0 8px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:end;
+}
+.ctrl label{display:block;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--clay);font-weight:700;margin-bottom:10px}
+input[type=range]{width:100%;accent-color:var(--clay)}
+.nval{font-family:"Consolas",monospace;font-size:1.5rem;font-weight:700}
+button{
+  font:inherit;font-weight:700;cursor:pointer;border-radius:6px;border:1px solid var(--clay);
+  background:var(--clay);color:#0E1A12;padding:11px 20px;
+}
+button.ghost{background:transparent;color:var(--clay)}
+button:disabled{opacity:.45;cursor:progress}
+button:focus-visible{outline:3px solid #9FE08A;outline-offset:2px}
+.aviso{
+  border-left:4px solid var(--alert);background:rgba(178,58,46,.12);
+  padding:12px 16px;border-radius:0 6px 6px 0;color:var(--muted);font-size:.95rem;margin:14px 0 30px;
+}
+.exp{background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:22px 24px;margin-bottom:20px}
+.exp h2{font-size:1.4rem;margin:0 0 4px}
+.exp .q{color:var(--muted);margin:0 0 16px;font-size:1rem}
+.exp .top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.bars{margin:14px 0 6px}
+.row{display:grid;grid-template-columns:200px 1fr 130px;gap:12px;align-items:center;margin:9px 0}
+.row .nm{font-size:.98rem}
+.row .nm small{display:block;color:var(--muted);font-family:"Consolas",monospace;font-size:.78rem}
+.track{background:rgba(255,255,255,.07);border-radius:4px;height:26px;overflow:hidden}
+.fill{height:100%;width:0;border-radius:4px;transition:width .5s ease}
+.fill.clay{background:var(--clay)} .fill.data{background:var(--data)} .fill.alert{background:var(--alert)}
+.ms{font-family:"Consolas",monospace;text-align:right;font-size:1rem}
+.ms b{font-size:1.15rem}
+.verdito{border-top:1px solid var(--line);margin-top:14px;padding-top:14px;color:var(--muted);font-size:.95rem}
+.verdito b{color:var(--panel)}
+.badge{display:inline-block;font-family:"Consolas",monospace;font-size:.8rem;background:rgba(95,151,60,.2);
+  color:#9FE08A;padding:3px 9px;border-radius:99px;margin-left:8px}
+.curva{background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:22px 24px;margin:34px 0 0}
+select{font:inherit;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:9px 12px}
+svg{width:100%;height:auto;display:block;margin-top:16px}
+.leg{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;font-size:.9rem;color:var(--muted)}
+.leg i{display:inline-block;width:14px;height:3px;vertical-align:middle;margin-right:7px}
+footer{color:rgba(255,255,255,.35);font-size:.85rem;margin-top:44px;border-top:1px solid var(--line);padding-top:18px}
+@media (max-width:720px){
+  .ctrl{grid-template-columns:1fr}
+  .row{grid-template-columns:1fr;gap:4px}
+  .ms{text-align:left}
+  header h1{font-size:1.7rem}
+}
+@media (prefers-reduced-motion:reduce){ .fill{transition:none} }
+</style>
+</head>
+<body>
+<div class="brand"></div>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Algoritmos e Estruturas de Dados · IFSC Câmpus Gaspar</div>
+  <h1>Bancada de estruturas de dados</h1>
+  <p class="lede">Cada teste roda de verdade na sua máquina, agora, e cronometra o tempo real. Nada é simulado.
+  Escolha o tamanho da coleção, rode e observe: a estrutura que vence um teste costuma perder o seguinte.</p>
+</header>
+
+<div class="ctrl">
+  <div>
+    <label for="n">Tamanho da coleção (N)</label>
+    <input type="range" id="n" min="5000" max="200000" step="5000" value="50000">
+    <div class="nval" id="nval">50.000 elementos</div>
+  </div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap">
+    <button id="tudo">Rodar todos os testes</button>
+    <button id="limpar" class="ghost">Limpar</button>
+  </div>
+</div>
+
+<div class="aviso" id="aviso">
+  A página congela enquanto um teste roda — é o mesmo processo executando o laço. Com N acima de 100.000,
+  os testes de <b>unshift</b> e <b>shift</b> podem levar vários segundos. Feche outras abas pesadas antes de medir.
+</div>
+
+<div id="exps"></div>
+
+<section class="curva">
+  <h2 style="margin:0 0 6px;font-size:1.4rem">Curva de crescimento</h2>
+  <p class="q" style="color:var(--muted);margin:0 0 16px">
+    O mesmo teste repetido em quatro tamanhos. O que interessa aqui não é a altura da linha — é o
+    <b>formato</b> dela. Reta horizontal é O(1). Reta inclinada é O(n). Curva que sobe cada vez mais rápido é O(n²).</p>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+    <select id="expCurva"></select>
+    <button id="rodarCurva">Traçar curva</button>
+  </div>
+  <div id="graf"></div>
+  <div class="leg" id="leg"></div>
+</section>
+
+<footer>
+  Prof. Timóteo Monteiro da Silva · Análise e Desenvolvimento de Sistemas · Aula 2 — Lista Encadeada.<br>
+  Os tempos variam conforme máquina, navegador e carga do sistema. Rode duas ou três vezes: o que se repete é a
+  proporção entre as estruturas, não o número absoluto.
+</footer>
+</div>
+
+<script>
+// ===================== Estruturas =====================
+class ListaEncadeada {
+  constructor(){ this.cabeca=null; this.cauda=null; this.tamanho=0; }
+  inserirNoInicio(v){ const n={v,prox:this.cabeca}; this.cabeca=n; if(!this.cauda)this.cauda=n; this.tamanho++; }
+  inserirNoFim(v){ const n={v,prox:null}; if(this.cauda){this.cauda.prox=n;this.cauda=n;} else {this.cabeca=this.cauda=n;} this.tamanho++; }
+  removerDoInicio(){ if(!this.cabeca)return null; const v=this.cabeca.v; this.cabeca=this.cabeca.prox; if(!this.cabeca)this.cauda=null; this.tamanho--; return v; }
+  get(i){ let a=this.cabeca; while(i-- > 0&&a)a=a.prox; return a?a.v:undefined; }
+}
+class BST {
+  constructor(){ this.raiz=null; }
+  inserir(v){ const n={v,esq:null,dir:null}; if(!this.raiz){this.raiz=n;return;} let a=this.raiz;
+    for(;;){ if(v<a.v){ if(!a.esq){a.esq=n;return;} a=a.esq;} else { if(!a.dir){a.dir=n;return;} a=a.dir;} } }
+  contem(v){ let a=this.raiz; while(a){ if(v===a.v)return true; a = v<a.v?a.esq:a.dir; } return false; }
+}
+function embaralhar(a){ for(let i=a.length-1;i>0;i--){const j=(Math.random()*(i+1))|0;[a[i],a[j]]=[a[j],a[i]];} return a; }
+function sorteios(N,K){ const s=[]; for(let i=0;i<K;i++) s.push((Math.random()*N)|0); return s; }
+function medir(fn){ const t=performance.now(); fn(); return performance.now()-t; }
+
+// ===================== Experimentos =====================
+const EXPERIMENTOS = [
+{
+  id:'ins-inicio', titulo:'Inserir no início', nMax:200000,
+  pergunta:'Colocar cada elemento novo na frente de todos os outros.',
+  explica:'O vetor empurra todos os elementos existentes uma casa para a direita a cada inserção. A lista só troca dois ponteiros. A distância entre as duas cresce junto com N.',
+  competidores:[
+    {nome:'Vetor (unshift)', big:'O(n) por inserção', cor:'alert',
+     prep:()=>null, op:(_,N)=>{const a=[];for(let i=0;i<N;i++)a.unshift(i);return a.length;}},
+    {nome:'Lista encadeada', big:'O(1) por inserção', cor:'clay',
+     prep:()=>null, op:(_,N)=>{const l=new ListaEncadeada();for(let i=0;i<N;i++)l.inserirNoInicio(i);return l.tamanho;}}
+  ]
+},
+{
+  id:'ins-fim', titulo:'Inserir no fim', nMax:200000,
+  pergunta:'O elemento novo entra sempre no final da coleção.',
+  explica:'Aqui o vetor vence: acrescentar no fim é O(1) amortizado e a memória contígua favorece a cache. A lista só acompanha porque guardamos um ponteiro de cauda — sem ele, cada inserção percorreria a lista inteira.',
+  competidores:[
+    {nome:'Vetor (push)', big:'O(1) amortizado', cor:'clay',
+     prep:()=>null, op:(_,N)=>{const a=[];for(let i=0;i<N;i++)a.push(i);return a.length;}},
+    {nome:'Lista com cauda', big:'O(1)', cor:'data',
+     prep:()=>null, op:(_,N)=>{const l=new ListaEncadeada();for(let i=0;i<N;i++)l.inserirNoFim(i);return l.tamanho;}}
+  ]
+},
+{
+  id:'acesso', titulo:'Acesso por posição', nMax:200000,
+  pergunta:'Ler o elemento de índice i, 2.000 vezes, em posições sorteadas.',
+  explica:'O vetor calcula o endereço direto a partir do índice. A lista precisa caminhar desde a cabeça a cada consulta. Este é o preço pago pela inserção barata do primeiro teste.',
+  competidores:[
+    {nome:'Vetor (a[i])', big:'O(1)', cor:'clay',
+     prep:(N)=>{const a=[];for(let i=0;i<N;i++)a.push(i);return {a,idx:sorteios(N,2000)};},
+     op:(s)=>{let x=0;for(const i of s.idx)x+=s.a[i];return x;}},
+    {nome:'Lista (get(i))', big:'O(n)', cor:'alert',
+     prep:(N)=>{const l=new ListaEncadeada();for(let i=0;i<N;i++)l.inserirNoFim(i);return {l,idx:sorteios(N,2000)};},
+     op:(s)=>{let x=0;for(const i of s.idx)x+=s.l.get(i);return x;}}
+  ]
+},
+{
+  id:'busca', titulo:'Busca por valor', nMax:200000,
+  pergunta:'Procurar 3.000 valores sorteados dentro da coleção.',
+  explica:'A varredura linear olha elemento por elemento. A árvore binária descarta metade dos candidatos a cada comparação. A tabela hash calcula o endereço a partir da própria chave — quase não depende do tamanho.',
+  competidores:[
+    {nome:'Vetor (varredura)', big:'O(n)', cor:'alert',
+     prep:(N)=>{const a=[];for(let i=0;i<N;i++)a.push(i);return {a,alvos:sorteios(N,3000)};},
+     op:(s)=>{let c=0;for(const t of s.alvos)if(s.a.indexOf(t)>=0)c++;return c;}},
+    {nome:'Árvore binária de busca', big:'O(log n) equilibrada', cor:'data',
+     prep:(N)=>{const v=embaralhar([...Array(N).keys()]);const b=new BST();for(const x of v)b.inserir(x);return {b,alvos:sorteios(N,3000)};},
+     op:(s)=>{let c=0;for(const t of s.alvos)if(s.b.contem(t))c++;return c;}},
+    {nome:'Tabela hash (Set)', big:'O(1) médio', cor:'clay',
+     prep:(N)=>{const st=new Set();for(let i=0;i<N;i++)st.add(i);return {st,alvos:sorteios(N,3000)};},
+     op:(s)=>{let c=0;for(const t of s.alvos)if(s.st.has(t))c++;return c;}}
+  ]
+},
+{
+  id:'fila', titulo:'Fila: remover do início', nMax:200000,
+  pergunta:'Esvaziar a coleção retirando sempre o primeiro elemento (FIFO).',
+  explica:'Esta é a razão de a fila dinâmica ser construída sobre lista encadeada. Cada remoção no vetor reposiciona todo o resto; na lista, a cabeça apenas avança um nó.',
+  competidores:[
+    {nome:'Vetor (shift)', big:'O(n) por remoção', cor:'alert',
+     prep:(N)=>{const a=[];for(let i=0;i<N;i++)a.push(i);return a;},
+     op:(a)=>{let c=0;while(a.length){a.shift();c++;}return c;}},
+    {nome:'Fila sobre lista', big:'O(1) por remoção', cor:'clay',
+     prep:(N)=>{const l=new ListaEncadeada();for(let i=0;i<N;i++)l.inserirNoFim(i);return l;},
+     op:(l)=>{let c=0;while(l.cabeca){l.removerDoInicio();c++;}return c;}}
+  ]
+},
+{
+  id:'ordenacao', titulo:'Ordenação', nMax:20000,
+  pergunta:'Ordenar a coleção embaralhada. N fica limitado a 20.000: a bolha é quadrática.',
+  explica:'A bolha compara pares vizinhos repetidamente — dobrar N quadruplica o tempo. O sort nativo usa Timsort, uma mistura de merge sort e inserção. A diferença não vem da linguagem: vem do algoritmo.',
+  competidores:[
+    {nome:'Bolha (bubble sort)', big:'O(n²)', cor:'alert',
+     prep:(N)=>embaralhar([...Array(N).keys()]),
+     op:(v)=>{const a=[...v];for(let i=0;i<a.length-1;i++){let t=false;for(let j=0;j<a.length-1-i;j++){if(a[j]>a[j+1]){const x=a[j];a[j]=a[j+1];a[j+1]=x;t=true;}}if(!t)break;}return a[0];}},
+    {nome:'Sort nativo (Timsort)', big:'O(n log n)', cor:'clay',
+     prep:(N)=>embaralhar([...Array(N).keys()]),
+     op:(v)=>{const a=[...v];a.sort((x,y)=>x-y);return a[0];}}
+  ]
+}
+];
+
+// ===================== Execução =====================
+function rodar(exp, N){
+  const n = Math.min(N, exp.nMax);
+  return exp.competidores.map(c=>{
+    const estado = c.prep ? c.prep(n) : null;
+    const ms = medir(()=>c.op(estado, n));
+    return {nome:c.nome, big:c.big, cor:c.cor, ms};
+  });
+}
+const fmt = ms => ms < 10 ? ms.toFixed(2) : ms < 1000 ? ms.toFixed(1) : (ms/1000).toFixed(2)+' s';
+const un  = ms => ms < 1000 ? ' ms' : '';
+const mil = n => n.toLocaleString('pt-BR');
+const espera = () => new Promise(r=>setTimeout(r,30));
+
+// ===================== Interface =====================
+const elExps = document.getElementById('exps');
+const elN = document.getElementById('n');
+const elNval = document.getElementById('nval');
+
+EXPERIMENTOS.forEach(exp=>{
+  const s = document.createElement('section');
+  s.className = 'exp';
+  s.innerHTML = `
+    <div class="top">
+      <div>
+        <h2>${exp.titulo}<span class="badge" data-n>N = —</span></h2>
+        <p class="q">${exp.pergunta}</p>
+      </div>
+      <button data-run>Rodar</button>
+    </div>
+    <div class="bars">
+      ${exp.competidores.map(c=>`
+        <div class="row">
+          <div class="nm">${c.nome}<small>${c.big}</small></div>
+          <div class="track"><div class="fill ${c.cor}" data-fill="${c.nome}"></div></div>
+          <div class="ms" data-ms="${c.nome}">—</div>
+        </div>`).join('')}
+    </div>
+    <div class="verdito" data-verd>${exp.explica}</div>`;
+  elExps.appendChild(s);
+
+  s.querySelector('[data-run]').addEventListener('click', async e=>{
+    const btn = e.currentTarget;
+    btn.disabled = true; btn.textContent = 'Rodando…';
+    await espera();
+    const N = Math.min(+elN.value, exp.nMax);
+    const res = rodar(exp, N);
+    const pior = Math.max(...res.map(r=>r.ms));
+    s.querySelector('[data-n]').textContent = 'N = ' + mil(N);
+    res.forEach(r=>{
+      s.querySelector(`[data-fill="${r.nome}"]`).style.width = Math.max(1.5, r.ms/pior*100) + '%';
+      s.querySelector(`[data-ms="${r.nome}"]`).innerHTML = '<b>'+fmt(r.ms)+'</b>'+un(r.ms);
+    });
+    const ord = [...res].sort((a,b)=>a.ms-b.ms);
+    const razao = ord[0].ms > 0 ? (ord[ord.length-1].ms/ord[0].ms) : 0;
+    s.querySelector('[data-verd]').innerHTML =
+      `<b>${ord[0].nome}</b> venceu — ${razao>=2?`cerca de <b>${razao.toFixed(razao<10?1:0)}×</b> mais rápido que ${ord[ord.length-1].nome}`:'a diferença ficou pequena neste N; aumente o tamanho da coleção'}.<br><br>${exp.explica}`;
+    btn.disabled = false; btn.textContent = 'Rodar de novo';
+  });
+});
+
+elN.addEventListener('input', ()=>{ elNval.textContent = mil(+elN.value) + ' elementos'; });
+
+document.getElementById('tudo').addEventListener('click', async e=>{
+  const b = e.currentTarget; b.disabled = true; b.textContent = 'Rodando…';
+  for (const btn of document.querySelectorAll('[data-run]')){ btn.click(); await espera(); await espera(); }
+  b.disabled = false; b.textContent = 'Rodar todos os testes';
+});
+
+document.getElementById('limpar').addEventListener('click', ()=>{
+  document.querySelectorAll('.fill').forEach(f=>f.style.width='0');
+  document.querySelectorAll('[data-ms]').forEach(m=>m.textContent='—');
+  document.querySelectorAll('[data-n]').forEach(n=>n.textContent='N = —');
+  EXPERIMENTOS.forEach((exp,i)=>{ document.querySelectorAll('[data-verd]')[i].innerHTML = exp.explica; });
+});
+
+// ===================== Curva de crescimento =====================
+const sel = document.getElementById('expCurva');
+EXPERIMENTOS.forEach(e=>{ const o=document.createElement('option'); o.value=e.id; o.textContent=e.titulo; sel.appendChild(o); });
+
+document.getElementById('rodarCurva').addEventListener('click', async e=>{
+  const btn = e.currentTarget; btn.disabled = true; btn.textContent = 'Medindo…';
+  await espera();
+  const exp = EXPERIMENTOS.find(x=>x.id===sel.value);
+  const base = Math.min(+elN.value, exp.nMax);
+  const tamanhos = [base/8, base/4, base/2, base].map(x=>Math.max(500, Math.round(x)));
+  const series = exp.competidores.map(c=>({nome:c.nome, cor:c.cor, pontos:[]}));
+  for (const n of tamanhos){
+    const res = rodar(exp, n);
+    res.forEach((r,i)=>series[i].pontos.push({x:n, y:r.ms}));
+    await espera();
+  }
+  desenhar(series, tamanhos);
+  btn.disabled = false; btn.textContent = 'Traçar de novo';
+});
+
+const COR = {clay:'#5F973C', data:'#2C6E63', alert:'#B23A2E'};
+
+function desenhar(series, tamanhos){
+  const W=920, H=340, m={t:20,r:20,b:48,l:70};
+  const maxY = Math.max(...series.flatMap(s=>s.pontos.map(p=>p.y)), 0.01);
+  const maxX = Math.max(...tamanhos);
+  const px = x => m.l + (x/maxX)*(W-m.l-m.r);
+  const py = y => H-m.b - (y/maxY)*(H-m.t-m.b);
+  let g = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Curva de crescimento do tempo por tamanho da coleção">`;
+  for (let i=0;i<=4;i++){
+    const y = m.t + i*(H-m.t-m.b)/4, val = maxY*(1-i/4);
+    g += `<line x1="${m.l}" y1="${y}" x2="${W-m.r}" y2="${y}" stroke="rgba(255,255,255,.10)"/>`;
+    g += `<text x="${m.l-10}" y="${y+4}" fill="#B9C9BC" font-size="12" text-anchor="end" font-family="Consolas,monospace">${val<10?val.toFixed(1):Math.round(val)}</text>`;
+  }
+  tamanhos.forEach((n,i)=>{
+    const anc = i===tamanhos.length-1 ? 'end' : 'middle';
+    g += `<text x="${px(n)}" y="${H-m.b+22}" fill="#B9C9BC" font-size="12" text-anchor="${anc}" font-family="Consolas,monospace">${mil(n)}</text>`;
+  });
+  g += `<text x="6" y="14" fill="#5F973C" font-size="11" text-anchor="start">tempo (ms)</text>`;
+  g += `<text x="${W/2}" y="${H-6}" fill="#5F973C" font-size="11" text-anchor="middle">N (elementos)</text>`;
+  series.forEach(s=>{
+    const d = s.pontos.map((p,i)=>(i?'L':'M')+px(p.x)+' '+py(p.y)).join(' ');
+    g += `<path d="${d}" fill="none" stroke="${COR[s.cor]}" stroke-width="3" stroke-linejoin="round"/>`;
+    s.pontos.forEach(p=>{ g += `<circle cx="${px(p.x)}" cy="${py(p.y)}" r="4.5" fill="${COR[s.cor]}"/>`; });
+  });
+  g += `</svg>`;
+  document.getElementById('graf').innerHTML = g;
+  document.getElementById('leg').innerHTML = series.map(s=>
+    `<span><i style="background:${COR[s.cor]}"></i>${s.nome} — último ponto: ${fmt(s.pontos[s.pontos.length-1].y)}${un(s.pontos[s.pontos.length-1].y)}</span>`).join('');
+}
+</script>
+</body>
+</html>
