@@ -1,3 +1,5 @@
+dontpad do profis = dontpad.com/timoteoms
+
 instalar -> https://www.msys2.org/
 
 no amarelinho (UCRT64), use 
