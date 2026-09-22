@@ -14,7 +14,7 @@ void testeVetor(int N)
         v[tam++] = i;
     auto t1 = high_resolution_clock::now();
 
-    long us = duration_cast<microseconds>(t1 - t0).count();
+    long us = duration_cast<nanoseconds>(t1 - t0).count();
     cout << " vetor push_back: " << us << " us (ult=" << v[tam - 1] << ")\n";
     delete[] v;
 }
@@ -32,7 +32,7 @@ void testePilha(int N)
         topo--;
     auto t1 = high_resolution_clock::now();
 
-    long us = duration_cast<microseconds>(t1 - t0).count();
+    long us = duration_cast<nanoseconds>(t1 - t0).count();
     cout << " pilha push+pop: " << us << " us\n";
 }
 
@@ -55,7 +55,7 @@ void testeFila(int N)
     }
     auto t1 = high_resolution_clock::now();
 
-    long us = duration_cast<microseconds>(t1 - t0).count();
+    long us = duration_cast<nanoseconds>(t1 - t0).count();
     cout << " fila enfileirar+desenfileirar: " << us << " us\n";
 }
 //   4. LISTA : push_back + acessar(ultimo)
@@ -90,8 +90,8 @@ void testeLista(int N)
     int ult = p->valor;
     auto t2 = high_resolution_clock::now();
 
-    long us1 = duration_cast<microseconds>(t1 - t0).count();
-    long us2 = duration_cast<microseconds>(t2 - t1).count();
+    long us1 = duration_cast<nanoseconds>(t1 - t0).count();
+    long us2 = duration_cast<nanoseconds>(t2 - t1).count();
     cout << " lista push_back: " << us1 << " us"
          << " acessar(ultimo): " << us2 << " us (ult=" << ult << ")\n";
 
@@ -143,8 +143,8 @@ void testeBusca(int N)
     int r2 = buscaBinaria(v, N, alvo);
     auto t3 = high_resolution_clock::now();
 
-    long us1 = duration_cast<microseconds>(t1 - t0).count();
-    long us2 = duration_cast<microseconds>(t3 - t2).count();
+    long us1 = duration_cast<nanoseconds>(t1 - t0).count();
+    long us2 = duration_cast<nanoseconds>(t3 - t2).count();
     cout << " busca linear: " << us1 << " us (r=" << r1 << ")"
          << " binaria: " << us2 << " us (r=" << r2 << ")\n";
 
@@ -207,8 +207,8 @@ void testeOrdenacao(int N)
     mergeSort(b, aux, 0, N - 1);
     auto t3 = high_resolution_clock::now();
 
-    long us1 = duration_cast<microseconds>(t1 - t0).count();
-    long us2 = duration_cast<microseconds>(t3 - t2).count();
+    long us1 = duration_cast<nanoseconds>(t1 - t0).count();
+    long us2 = duration_cast<nanoseconds>(t3 - t2).count();
     cout << " bubble: " << us1 << " us (a0=" << a[0] << ")"
          << " merge: " << us2 << " us (b0=" << b[0] << ")\n";
 }
