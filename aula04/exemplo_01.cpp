@@ -224,8 +224,7 @@ int main()
     {
         int N = Ns[k];
         cout << " === N =" << N << " === \n";
-        if (N <= 1000000)
-            testeOrdenacao(N);
+        if (N <= 100000)testeOrdenacao(N);
         cout << "\n";
     }
 
@@ -234,8 +233,7 @@ int main()
     {
         int N = Ns[k];
         cout << " === N =" << N << " === \n";
-        if (N <= 1000000)
-            testeVetor(N);
+        testeVetor(N);
         cout << "\n";
     }
 
@@ -244,8 +242,7 @@ int main()
     {
         int N = Ns[k];
         cout << " === N =" << N << " === \n";
-        if (N <= 1000000)
-            testePilha(N);
+        testePilha(N);
         cout << "\n";
     }
 
@@ -254,8 +251,7 @@ int main()
     {
         int N = Ns[k];
         cout << " === N =" << N << " === \n";
-        if (N <= 1000000)
-            testeFila(N);
+        if (N <= 100000)testeFila(N);
         cout << "\n";
     }
     cout << "============lista=============\n";
@@ -263,8 +259,7 @@ int main()
     {
         int N = Ns[k];
         cout << " === N =" << N << " === \n";
-        if (N <= 1000000)
-            testeLista(N);
+        testeLista(N);
         cout << "\n";
     }
     cout << "============busca=============\n";
@@ -272,8 +267,7 @@ int main()
     {
         int N = Ns[k];
         cout << " === N =" << N << " === \n";
-        if (N <= 1000000)
-            testeBusca(N);
+        testeBusca(N);
         cout << "\n";
     }
 
