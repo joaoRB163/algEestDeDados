@@ -212,24 +212,68 @@ void testeOrdenacao(int N)
     cout << " bubble: " << us1 << " us (a0=" << a[0] << ")"
          << " merge: " << us2 << " us (b0=" << b[0] << ")\n";
 }
+
 // MAIN: roda tudo para cada N
 int main()
 {
     srand(42);
     int Ns[] = {1000, 10000, 100000, 1000000};
     int tam = 4;
-
+    cout << "============ordenacao=============\n";
     for (int k = 0; k < tam; k++)
     {
         int N = Ns[k];
         cout << " === N =" << N << " === \n";
-        testeVetor(N);
-        testePilha(N);
-        testeFila(N);
-        testeLista(N);
-        testeBusca(N);
-        if (N <= 100000)
+        if (N <= 1000000)
             testeOrdenacao(N);
+        cout << "\n";
+    }
+
+    cout << "============vetor=============\n";
+    for (int k = 0; k < tam; k++)
+    {
+        int N = Ns[k];
+        cout << " === N =" << N << " === \n";
+        if (N <= 1000000)
+            testeVetor(N);
+        cout << "\n";
+    }
+
+    cout << "============pilha=============\n";
+    for (int k = 0; k < tam; k++)
+    {
+        int N = Ns[k];
+        cout << " === N =" << N << " === \n";
+        if (N <= 1000000)
+            testePilha(N);
+        cout << "\n";
+    }
+
+    cout << "============fila=============\n";
+    for (int k = 0; k < tam; k++)
+    {
+        int N = Ns[k];
+        cout << " === N =" << N << " === \n";
+        if (N <= 1000000)
+            testeFila(N);
+        cout << "\n";
+    }
+    cout << "============lista=============\n";
+    for (int k = 0; k < tam; k++)
+    {
+        int N = Ns[k];
+        cout << " === N =" << N << " === \n";
+        if (N <= 1000000)
+            testeLista(N);
+        cout << "\n";
+    }
+    cout << "============busca=============\n";
+    for (int k = 0; k < tam; k++)
+    {
+        int N = Ns[k];
+        cout << " === N =" << N << " === \n";
+        if (N <= 1000000)
+            testeBusca(N);
         cout << "\n";
     }
 
