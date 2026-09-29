@@ -96,6 +96,16 @@ void caixaE(int N)
         cout << soma;
 }
 
+// ---------- Caixa F ----------
+// Empilha um valor e desempilha em seguida. O vetor ja existe (preparacao).
+void caixaF(int N) {
+ vector<int> pilha(N + 1);
+ int topo = 0;
+ ops++; pilha[topo++] = 42;
+ ops++; int x = pilha[--topo];
+ if (x < 0) cout << x;
+}
+
 // ---------- Caixa G ----------
 // Acrescenta N elementos, alocando um vetor novo (1 posicao maior) a cada vez.
 void caixaG(int N)
