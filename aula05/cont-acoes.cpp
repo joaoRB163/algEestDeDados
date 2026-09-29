@@ -220,7 +220,7 @@ int main()
     int Ns[] = {10, 100, 1000, 10000};
     void (*caixas[])(int) = {caixaA, caixaB, caixaC, caixaD, caixaE, caixaF,
                              caixaG, caixaH, caixaI, caixaJ, caixaK};
-    cout << "caixa N=10 N=100 N=1000 N=10000\n";
+    cout << "caixa" << setw(9) <<"N=10" << setw(9) <<"N=100" << setw(10) <<"N=1000" << setw(11) <<"N=10000\n";
     for (int c = 0; c < 11; c++)
     {
         cout << " " << char('A' + c) << " ";
@@ -228,7 +228,7 @@ int main()
         {
             ops = 0; // zera antes de cada execucao
             caixas[c](Ns[k]);
-            cout << setw(9) << ops;
+            cout << setw(10) << ops;
         }
         cout << "\n";
     }
